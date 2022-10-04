@@ -3,11 +3,14 @@ package guru.springframework.repositories;
 import guru.springframework.domain.Recipe;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface RecipeRepository extends JpaRepository<Recipe, Long> {
+@Repository
+public interface RecipeRepository extends JpaRepository<Recipe, Long>, JpaSpecificationExecutor<Recipe> {
 
     @Query(value = "SELECT recipe.description FROM recipe WHERE LOWER(difficulty)=LOWER(:#{#difficulty})", nativeQuery = true)
     List<String> findAllRecipesWithDifficulty(String difficulty);

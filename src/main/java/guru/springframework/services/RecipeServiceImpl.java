@@ -1,6 +1,8 @@
 package guru.springframework.services;
 
+import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
+import guru.springframework.repositories.CriteriaRecipeRepository;
 import guru.springframework.repositories.RecipeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,13 +14,20 @@ import java.util.List;
 import java.util.Set;
 
 
+
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeRepository recipeRepository;
+    private final CriteriaRecipeRepository criteriaRecipeRepository;
 
-    public RecipeServiceImpl(RecipeRepository recipeRepository) {
+    public RecipeServiceImpl(RecipeRepository recipeRepository, CriteriaRecipeRepository criteriaRecipeRepository) {
         this.recipeRepository = recipeRepository;
+        this.criteriaRecipeRepository = criteriaRecipeRepository;
+    }
+
+    public List<Recipe> getAllrecipes(){
+        return recipeRepository.findAll();
     }
 
     @Override
@@ -34,10 +43,8 @@ public class RecipeServiceImpl implements RecipeService {
         List<Recipe> allTenCookTimeRecipe =
                 recipeRepository.findAllByCookTime(10, secondPageWithTwoElements);
 
-        System.out.println("findAllRecipesWithDifficultyEasy : " + recipeRepository.findAllRecipesWithDifficulty("EASY"));
-        System.out.println("findRecipeNameByCategory " + recipeRepository.findRecipeNameByCategory("American"));
-        System.out.println("findRecipeNameByIngredient " + recipeRepository.findRecipeNameByIngredient("steak"));
-        System.out.println("findRecipeNameWithNotes " + recipeRepository.findRecipeNameWithNotes());
+        Ingredient ingredient = allRecipe.stream().findFirst().get().getIngredients().stream().findFirst().get();
+
 
         return recipes;
     }

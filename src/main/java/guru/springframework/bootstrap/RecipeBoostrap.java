@@ -27,7 +27,7 @@ public class RecipeBoostrap implements ApplicationListener<ContextRefreshedEvent
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        recipeRepository.saveAll(getRecipes());
+//        recipeRepository.saveAll(getRecipes());
     }
 
     private List<Recipe> getRecipes() {
@@ -66,7 +66,6 @@ public class RecipeBoostrap implements ApplicationListener<ContextRefreshedEvent
         UnitOfMeasure teaspoonUom = teaspoonUomOptional.get();
         UnitOfMeasure tablespoonUom = tablespoonUomOptional.get();
         UnitOfMeasure cupUom = cupUomOptional.get();
-        UnitOfMeasure pinchUom = pinchUomOptional.get();
         UnitOfMeasure eachUom = eachUomOptional.get();
 
         Optional<Category> americanCategoryOptional = categoryRepository.findByDescription("American");
