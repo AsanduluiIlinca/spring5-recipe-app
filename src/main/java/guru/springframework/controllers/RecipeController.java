@@ -1,12 +1,13 @@
 package guru.springframework.controllers;
 
 
+import guru.springframework.domain.Difficulty;
 import guru.springframework.domain.Recipe;
 import guru.springframework.services.RecipeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class RecipeController {
@@ -18,7 +19,38 @@ public class RecipeController {
     }
 
     @GetMapping("/recipes")
-    Set<Recipe> getAllRecipe() {
-        return recipeService.getRecipes();
+    List<Recipe> getAllRecipe() {
+        return recipeService.getAllRecipes();
+    }
+
+    @PostMapping("/recipe")
+    Recipe addRecipe(@RequestBody Recipe newRecipe) {
+        return recipeService.save(newRecipe);
+    }
+
+    @GetMapping("/recipe/{id}")
+    Optional<Recipe> getRecipeById(@PathVariable Long id) {
+        return recipeService.findById(id);
+    }
+
+    @PutMapping("/recipe/{id}")
+    Recipe updateRecipe(@RequestBody Recipe newRecipe, @PathVariable Long id) {
+
+        return recipeService.updateRecipe(newRecipe, id);
+    }
+
+    @DeleteMapping("/recipe/{id}")
+    void deleteEmployee(@PathVariable Long id) {
+        recipeService.deleteById(id);
+    }
+
+    @GetMapping("/search/{difficulty}")
+    List<Recipe> getRecipeByDifficultyAndPrepTime(@PathVariable Difficulty difficulty, @RequestBody Integer prepTime)  {
+        return recipeService.findRecipesByDifficultyAndPrepTime(difficulty, prepTime);
+    }
+
+    @GetMapping("/search/recipe/")
+    List<String> getRecipesNameByCategory(@RequestBody String category)  {
+        return recipeService.findRecipesNameByCategory(category);
     }
 }

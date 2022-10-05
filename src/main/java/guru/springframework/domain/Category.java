@@ -1,5 +1,6 @@
 package guru.springframework.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ public class Category {
     private String  description;
 
     @ManyToMany(mappedBy = "categories")
+    @JsonBackReference
     private Set<Recipe> recipes;
 
 }

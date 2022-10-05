@@ -8,7 +8,10 @@ import java.util.List;
 
 public interface CriteriaRecipeRepository {
     List<Recipe> findRecipesByDescription(String description);
+
     List<Recipe> findRecipesByDifficultyAndPrepTime(Difficulty difficulty, Integer prepTime);
 
     List<Recipe> findRecipesWhichContainsAnIngredient(Ingredient ingredient);
+
+    List<String> findRecipesNameByCategory(String category);
 }

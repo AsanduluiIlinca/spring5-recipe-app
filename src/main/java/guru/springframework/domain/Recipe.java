@@ -1,5 +1,6 @@
 package guru.springframework.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -29,16 +30,19 @@ public class Recipe {
     private Difficulty difficulty;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients= new HashSet<>();
+    @JsonManagedReference
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JsonManagedReference
     private Set<Category> categories = new HashSet<>();
 
     @Lob
     private Byte[] image;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Notes notes;
 
 }

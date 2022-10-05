@@ -1,5 +1,6 @@
 package guru.springframework.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class Ingredient {
     private String description;
     private BigDecimal amount;
     @ManyToOne
+    @JsonBackReference
     private Recipe recipe;
 
     @OneToOne(fetch = FetchType.EAGER)

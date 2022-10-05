@@ -1,5 +1,6 @@
 package guru.springframework.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,7 @@ public class Notes {
     private Long id;
 
     @OneToOne
+    @JsonBackReference
     private Recipe recipe;
     @Lob
     private String recipeNotes;
